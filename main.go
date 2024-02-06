@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	fmt.Println("Привіт, World!")
-	fmt.Println("Мене звати код!")
+	fmt.Println("Ласкаво просимо на майданчик!")
+
+	fmt.Println("Час -", time.Now(), "Ми тут!")
 }
