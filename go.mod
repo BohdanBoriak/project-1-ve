@@ -1,3 +1,3 @@
-module project_1
+module project-1-ve
 
 go 1.21.5
