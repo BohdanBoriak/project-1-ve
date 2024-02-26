@@ -8,16 +8,42 @@ import (
 )
 
 var (
-	points            int = 50
+	points            int = 10
 	pointsPerQuestion int = 5
 )
 
 func main() {
 	fmt.Println("Вітаємо у найкращій грі! Йде завантаження...")
-	time.Sleep(5 * time.Second)
+	time.Sleep(1 * time.Second)
+
+	for {
+		menu()
+		punct := ""
+		fmt.Scan(&punct)
+
+		switch punct {
+		case "1":
+			play()
+		case "2":
+			fmt.Println("Поки рейтингу не завезли... =(")
+		case "3":
+			return
+		default:
+			fmt.Println("Не коректний вибір")
+		}
+	}
+}
+
+func menu() {
+	fmt.Println("1. Почати гру")
+	fmt.Println("2. Переглянути рейтинг")
+	fmt.Println("3. Вийти")
+}
+
+func play() {
 	fmt.Println("Підготуватись!")
 
-	for i := 5; i > 0; i-- {
+	for i := 3; i > 0; i-- {
 		fmt.Printf("До початку: %v\n", i)
 		time.Sleep(1 * time.Second)
 	}
@@ -51,6 +77,6 @@ func main() {
 	then := time.Now()
 	spent := then.Sub(now)
 
-	fmt.Printf("Ти топ! Впорався за %s", spent)
-	time.Sleep(10 * time.Second)
+	fmt.Printf("Ти топ! Впорався за %s\n", spent)
+	time.Sleep(5 * time.Second)
 }
