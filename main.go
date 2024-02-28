@@ -3,18 +3,23 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"project-1-ve/domain"
 	"strconv"
 	"time"
 )
 
-var (
+const (
 	points            int = 10
 	pointsPerQuestion int = 5
 )
 
+var id uint64 = 1
+
 func main() {
 	fmt.Println("Вітаємо у найкращій грі! Йде завантаження...")
 	time.Sleep(1 * time.Second)
+
+	var users []domain.User
 
 	for {
 		menu()
@@ -23,7 +28,8 @@ func main() {
 
 		switch punct {
 		case "1":
-			play()
+			u := play()
+			users = append(users, u)
 		case "2":
 			fmt.Println("Поки рейтингу не завезли... =(")
 		case "3":
@@ -40,7 +46,7 @@ func menu() {
 	fmt.Println("3. Вийти")
 }
 
-func play() {
+func play() domain.User {
 	fmt.Println("Підготуватись!")
 
 	for i := 3; i > 0; i-- {
@@ -50,8 +56,9 @@ func play() {
 
 	fmt.Println("ВПЕРЕД!")
 	myPoints := 0
+	pointsPerGame := points
 	now := time.Now()
-	for points > 0 {
+	for pointsPerGame > 0 {
 		x, y := rand.Intn(100), rand.Intn(100)
 		res := x + y
 
@@ -65,10 +72,10 @@ func play() {
 			fmt.Printf("Error: %s", err)
 		} else {
 			if ansInt == res {
-				points -= pointsPerQuestion
+				pointsPerGame -= pointsPerQuestion
 				myPoints += pointsPerQuestion
 				fmt.Printf("Правильно! У тебе: %v очок!\n", myPoints)
-				fmt.Printf("Залишилось зібрати: %v очок!\n", points)
+				fmt.Printf("Залишилось зібрати: %v очок!\n", pointsPerGame)
 			} else {
 				fmt.Println("Не правильно! Спробуй ще!")
 			}
@@ -78,5 +85,22 @@ func play() {
 	spent := then.Sub(now)
 
 	fmt.Printf("Ти топ! Впорався за %s\n", spent)
-	time.Sleep(5 * time.Second)
+
+	fmt.Println("Введіть своє ім'я: ")
+	playerName := ""
+	fmt.Scan(&playerName)
+
+	// var user domain.User
+	// user.Id = id
+	// user.Name = playerName
+	// user.Time = spent
+
+	user := domain.User{
+		Id:   id,
+		Name: playerName,
+		Time: spent,
+	}
+
+	id++
+	return user
 }
