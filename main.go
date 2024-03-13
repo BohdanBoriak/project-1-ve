@@ -31,7 +31,9 @@ func main() {
 			u := play()
 			users = append(users, u)
 		case "2":
-			fmt.Println("Поки рейтингу не завезли... =(")
+			for _, u := range users {
+				fmt.Printf("Id: %v, Name: %s, Time: %v", u.Id, u.Name, u.Time)
+			}
 		case "3":
 			return
 		default:
@@ -100,7 +102,7 @@ func play() domain.User {
 		Name: playerName,
 		Time: spent,
 	}
-
 	id++
+
 	return user
 }
