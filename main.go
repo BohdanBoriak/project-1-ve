@@ -22,31 +22,28 @@ func main() {
 	fmt.Println("Вітаємо у найкращій грі! Йде завантаження...")
 	time.Sleep(1 * time.Second)
 
-	users := getUsers()
-	fmt.Println(users)
+	for {
+		menu()
+		punct := ""
+		fmt.Scan(&punct)
 
-	// for {
-	// 	menu()
-	// 	punct := ""
-	// 	fmt.Scan(&punct)
-
-	// 	switch punct {
-	// 	case "1":
-	// 		u := play()
-	// 		users := getUsers()
-	// 		users = append(users, u)
-	// 		sortAndSave(users)
-	// 	case "2":
-	// 		users := getUsers()
-	// 		for _, u := range users {
-	// 			fmt.Printf("Id: %v, Name: %s, Time: %v\n", u.Id, u.Name, u.Time)
-	// 		}
-	// 	case "3":
-	// 		return
-	// 	default:
-	// 		fmt.Println("Не коректний вибір")
-	// 	}
-	// }
+		switch punct {
+		case "1":
+			u := play()
+			users := getUsers()
+			users = append(users, u)
+			sortAndSave(users)
+		case "2":
+			users := getUsers()
+			for _, u := range users {
+				fmt.Printf("Id: %v, Name: %s, Time: %v\n", u.Id, u.Name, u.Time)
+			}
+		case "3":
+			return
+		default:
+			fmt.Println("Не коректний вибір")
+		}
+	}
 }
 
 func menu() {
@@ -143,6 +140,14 @@ func sortAndSave(users []domain.User) {
 func getUsers() []domain.User {
 	info, err := os.Stat("users.json")
 	if err != nil {
+		if os.IsNotExist(err) {
+			_, err := os.Create("users.json")
+			if err != nil {
+				fmt.Printf("Error: %s", err)
+				return nil
+			}
+			return nil
+		}
 		fmt.Printf("Error: %s", err)
 		return nil
 	}
