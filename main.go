@@ -22,13 +22,8 @@ func main() {
 	fmt.Println("Вітаємо у найкращій грі! Йде завантаження...")
 	time.Sleep(1 * time.Second)
 
-	var users []domain.User
-
-	users = append(users, domain.User{Id: 1, Name: "Vasyl", Time: 2 * time.Minute})
-	users = append(users, domain.User{Id: 2, Name: "Mykola", Time: 1 * time.Minute})
-	users = append(users, domain.User{Id: 3, Name: "Max", Time: 3 * time.Minute})
-
-	sortAndSave(users)
+	users := getUsers()
+	fmt.Println(users)
 
 	// for {
 	// 	menu()
@@ -38,8 +33,11 @@ func main() {
 	// 	switch punct {
 	// 	case "1":
 	// 		u := play()
+	// 		users := getUsers()
 	// 		users = append(users, u)
+	// 		sortAndSave(users)
 	// 	case "2":
+	// 		users := getUsers()
 	// 		for _, u := range users {
 	// 			fmt.Printf("Id: %v, Name: %s, Time: %v\n", u.Id, u.Name, u.Time)
 	// 		}
