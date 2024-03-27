@@ -22,6 +22,14 @@ func main() {
 	fmt.Println("Вітаємо у найкращій грі! Йде завантаження...")
 	time.Sleep(1 * time.Second)
 
+	users := getUsers()
+	for i := range users {
+		if users[i].Id > id {
+			id = users[i].Id
+		}
+	}
+	id++
+
 	for {
 		menu()
 		punct := ""
